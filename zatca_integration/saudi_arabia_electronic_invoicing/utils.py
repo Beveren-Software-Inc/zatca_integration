@@ -516,6 +516,7 @@ def get_zatca_tax_category_details(invoice_doc):
             "Standard Rate": "S",
             "Zero Rate": "Z",
             "Except Rate": "E",
+            "Out of Scope": "O",
         }
         reason_and_code = None
         reason_code = None

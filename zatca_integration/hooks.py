@@ -32,6 +32,10 @@ app_license = "mit"
 doctype_js = {
     "Sales Invoice": "public/js/sales_invoice.js",
     "CSID Transactions": "public/js/csid_transactions_list.js",
+    "Company": "public/js/company.js",
+    "Address": "public/js/address.js",
+    "Customer": "public/js/customer.js",
+    "Supplier": "public/js/supplier.js",
 }
 
 doctype_list_js = {"Sales Invoice": "public/js/sales_invoice_list.js"}
@@ -86,6 +90,7 @@ fixtures = [
                     "Company-custom_convertapi_token",
                     "Company-custom_enable_stock_delivered_unbilled",
                     "Company-custom_enable_csid_expiry_alerts",
+                    "Company-custom_zatca_vat_setup_done",
                     # Sales Invoice
                     "Sales Invoice-custom_compliance",
                     "Sales Invoice-custom_cn_ref",
@@ -139,10 +144,15 @@ fixtures = [
                     "Sales Invoice-custom_credit_shipping_address",
                     "Sales Invoice-custom_credit_customer",
                     "Sales Invoice-custom_section_break_lg3it",
-                    "Sales Invoice-custom_column_break_8uadn"
+                    "Sales Invoice-custom_column_break_8uadn",
                     # Address
-                    "Address-custom_arabic_address",
                     "Address-custom_national_address",
+                    "Address-custom_additional_no",
+                    "Address-tax_category",
+                    "Address-custom_country_in_arabic",
+                    "Address-custom_city_in_arabic",
+                    "Address-custom_district_in_arabic",
+                    "Address-custom_street_in_arabic",
                     # Customer
                     # "Customer-loan_details_tab",
                     # "Customer-is_npa",
@@ -177,6 +187,9 @@ fixtures = [
                     # Tax account
                     "Account-custom_tax_type",
                     "Company-custom_include_po_no",
+                    "Company-custom_zatca_setup",
+                    "Company-custom_zatca_vat_setup_done",
+                    "Address-custom_additional_no",
                 ],
             ]
         ],
@@ -205,6 +218,9 @@ fixtures = [
                     "Address-address_line2-label",
                     "Address-address_line1-label",
                     "Address-pincode-reqd",
+                    "Address-tax_category-label",
+                    "Customer-tax_category-label",
+                    "Supplier-tax_category-label",
                 ],
             ]
         ],
@@ -329,7 +345,15 @@ doc_events = {
     "Company": {
         "on_update": "zatca_integration.saudi_arabia_electronic_invoicing.background_task.on_update"
     },
-    "Address": {"before_save": "zatca_integration.overrides.address.before_save"},
+    "Address": {
+        "validate": "zatca_integration.overrides.address.validate",
+    },
+    "Customer": {
+        "on_update": "zatca_integration.overrides.address.sync_party_tax_category_to_addresses",
+    },
+    "Supplier": {
+        "on_update": "zatca_integration.overrides.address.sync_party_tax_category_to_addresses",
+    },
 }
 
 # doc_events = {

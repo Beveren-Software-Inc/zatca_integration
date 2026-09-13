@@ -5,3 +5,4 @@ zatca_integration.saudi_arabia_electronic_invoicing.patches.sales_invoice
 
 [post_model_sync]
 # Patches added in this section will be executed after doctypes are migrated
+zatca_integration.saudi_arabia_electronic_invoicing.patches.ensure_vat_setup_fields
