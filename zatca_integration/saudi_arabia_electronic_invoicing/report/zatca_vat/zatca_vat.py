@@ -232,6 +232,9 @@ def get_expense_claim_vat_by_type(company, from_date, to_date):
     if not from_date or not to_date:
         return {}
 
+    if not frappe.db.table_exists("Expense Claim") or not frappe.db.table_exists("Expense Taxes and Charges"):
+        return {}
+
     sql = """
         SELECT
             acc.custom_tax_type,
