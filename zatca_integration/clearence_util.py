@@ -7,9 +7,9 @@ import uuid
 from datetime import date, datetime, timedelta
 
 import frappe
-from frappe import _
 import qrcode
 import requests
+from frappe import _
 from frappe.utils import get_datetime
 from lxml import etree
 from requests.auth import HTTPBasicAuth
@@ -670,7 +670,10 @@ def bulk_resend_einvoices(invoice_names):
             if not doc.custom_is_zatca_test:
                 if not company.get("custom_enable_zatca_e_invoicing"):
                     skipped.append(
-                        {"name": name, "message": _("ZATCA e-invoicing is not enabled for this company")}
+                        {
+                            "name": name,
+                            "message": _("ZATCA e-invoicing is not enabled for this company"),
+                        }
                     )
                     continue
                 if company.get("country") != "Saudi Arabia":
@@ -679,9 +682,7 @@ def bulk_resend_einvoices(invoice_names):
                     )
                     continue
                 if company.get("custom_zatca_phase") != "ZATCA Phase 2":
-                    skipped.append(
-                        {"name": name, "message": _("Company is not on ZATCA Phase 2")}
-                    )
+                    skipped.append({"name": name, "message": _("Company is not on ZATCA Phase 2")})
                     continue
 
             try:
@@ -701,7 +702,8 @@ def bulk_resend_einvoices(invoice_names):
                         {
                             "name": name,
                             "message": _(
-                                "Submission did not reach REPORTED/CLEARED; check the invoice and ZATCA settings"
+                                "Submission did not reach REPORTED/CLEARED; "
+                                "check the invoice and ZATCA settings"
                             ),
                         }
                     )
