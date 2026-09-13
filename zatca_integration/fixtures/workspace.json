@@ -1,98 +1,253 @@
 [
  {
+  "app": "zatca_integration",
   "charts": [
    {
     "chart_name": "Document Submission Status",
-    "label": "Zatca Submission Status",
-    "parent": "ZATCA Integrations",
-    "parentfield": "charts",
-    "parenttype": "Workspace"
+    "label": "Zatca Submission Status"
    },
    {
     "chart_name": "Monthly Submission Summary",
-    "label": "Monthly Submission Summary",
-    "parent": "ZATCA Integrations",
-    "parentfield": "charts",
-    "parenttype": "Workspace"
+    "label": "Monthly Submission Summary"
    }
   ],
   "content": "[{\"id\":\"-fQK88hAOR\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">ZATCA Integrations</span>\",\"col\":12}},{\"id\":\"HopH4okaba\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"VAT Report\",\"col\":3}},{\"id\":\"wF2aNtcvOR\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Zatca CSR Settings\",\"col\":3}},{\"id\":\"f0SI5v1N6Y\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Compliance CSID\",\"col\":3}},{\"id\":\"szitNokyn6\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Production CSID\",\"col\":3}},{\"id\":\"kqYhDBIvrH\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Zatca Environments\",\"col\":3}},{\"id\":\"Xs9pmrVWPk\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"CSID Transactions\",\"col\":3}},{\"id\":\"W1Jx8YKfj9\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"PSID Transactions\",\"col\":3}},{\"id\":\"lzSiDum3v_\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Zatca Dashboard\",\"col\":3}},{\"id\":\"lSqtYuuQwK\",\"type\":\"custom_block\",\"data\":{\"custom_block_name\":\"Line Separator\",\"col\":12}},{\"id\":\"Fazx7eK6Kj\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Monthly Submission Summary\",\"col\":6}},{\"id\":\"HuSFmSQdJC\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Zatca Submission Status\",\"col\":6}},{\"id\":\"hwwEx4vPZ0\",\"type\":\"custom_block\",\"data\":{\"custom_block_name\":\"Line Separator\",\"col\":12}},{\"id\":\"vVX8GD5RSz\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Weekly Zatca Summary</b></span>\",\"col\":12}},{\"id\":\"o-dSS0BYfB\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"CLEARED INVOICES\",\"col\":4}},{\"id\":\"vShS1PhcFj\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"REPORTED INVOICES\",\"col\":4}},{\"id\":\"ZL15rV9SoL\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"PENDING INVOICES\",\"col\":4}},{\"id\":\"zz24Tn7oJB\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"REPORTED with WARNING  INVOICES\",\"col\":4}},{\"id\":\"Hy6PfOk3zU\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"CLEARED with WARNING  INVOICES\",\"col\":4}},{\"id\":\"2UMgFURWLl\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"FAILED CLEARED INVOICES\",\"col\":4}},{\"id\":\"56i7jAnVWK\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"FAILED REPORTED INVOICES\",\"col\":4}}]",
   "custom_blocks": [
    {
     "custom_block_name": "Line Separator",
-    "label": "Line Separator",
-    "parent": "ZATCA Integrations",
-    "parentfield": "custom_blocks",
-    "parenttype": "Workspace"
+    "label": "Line Separator"
    }
   ],
   "docstatus": 0,
   "doctype": "Workspace",
+  "external_link": null,
   "for_user": "",
   "hide_custom": 0,
-  "icon": "onboarding",
+  "icon": "home",
   "indicator_color": "green",
   "is_hidden": 0,
   "label": "ZATCA Integrations",
-  "links": [],
-  "modified": "2025-07-27 09:12:33.182485",
-  "module": null,
+  "link_to": null,
+  "link_type": null,
+  "links": [
+   {
+    "dependencies": "",
+    "description": null,
+    "hidden": 0,
+    "icon": null,
+    "is_query_report": 0,
+    "label": "Dashboard",
+    "link_count": 0,
+    "link_to": "Zatca",
+    "link_type": "Dashboard",
+    "onboard": 0,
+    "only_for": null,
+    "report_ref_doctype": null,
+    "type": "Link"
+   },
+   {
+    "dependencies": "",
+    "description": null,
+    "hidden": 0,
+    "icon": null,
+    "is_query_report": 0,
+    "label": "Transactions",
+    "link_count": 0,
+    "link_to": null,
+    "link_type": null,
+    "onboard": 0,
+    "only_for": null,
+    "report_ref_doctype": null,
+    "type": "Card Break"
+   },
+   {
+    "dependencies": "",
+    "description": null,
+    "hidden": 0,
+    "icon": null,
+    "is_query_report": 0,
+    "label": "CSID Transactions",
+    "link_count": 0,
+    "link_to": "CSID Transactions",
+    "link_type": "DocType",
+    "onboard": 0,
+    "only_for": null,
+    "report_ref_doctype": null,
+    "type": "Link"
+   },
+   {
+    "dependencies": "",
+    "description": null,
+    "hidden": 0,
+    "icon": null,
+    "is_query_report": 0,
+    "label": "PSID Transactions",
+    "link_count": 0,
+    "link_to": "Zatca Transactions",
+    "link_type": "DocType",
+    "onboard": 0,
+    "only_for": null,
+    "report_ref_doctype": null,
+    "type": "Link"
+   },
+   {
+    "dependencies": "",
+    "description": null,
+    "hidden": 0,
+    "icon": null,
+    "is_query_report": 0,
+    "label": "Masters",
+    "link_count": 0,
+    "link_to": null,
+    "link_type": null,
+    "onboard": 0,
+    "only_for": null,
+    "report_ref_doctype": null,
+    "type": "Card Break"
+   },
+   {
+    "dependencies": "",
+    "description": null,
+    "hidden": 0,
+    "icon": null,
+    "is_query_report": 0,
+    "label": "Compliance CSID",
+    "link_count": 0,
+    "link_to": "Compliance CSID",
+    "link_type": "DocType",
+    "onboard": 0,
+    "only_for": null,
+    "report_ref_doctype": null,
+    "type": "Link"
+   },
+   {
+    "dependencies": "",
+    "description": null,
+    "hidden": 0,
+    "icon": null,
+    "is_query_report": 0,
+    "label": "Production CSID",
+    "link_count": 0,
+    "link_to": "Production CSID",
+    "link_type": "DocType",
+    "onboard": 0,
+    "only_for": null,
+    "report_ref_doctype": null,
+    "type": "Link"
+   },
+   {
+    "dependencies": "",
+    "description": null,
+    "hidden": 0,
+    "icon": null,
+    "is_query_report": 0,
+    "label": "Zatca Environments",
+    "link_count": 0,
+    "link_to": "Zatca Environment",
+    "link_type": "DocType",
+    "onboard": 0,
+    "only_for": null,
+    "report_ref_doctype": null,
+    "type": "Link"
+   },
+   {
+    "dependencies": "",
+    "description": null,
+    "hidden": 0,
+    "icon": null,
+    "is_query_report": 0,
+    "label": "Reports",
+    "link_count": 0,
+    "link_to": null,
+    "link_type": null,
+    "onboard": 0,
+    "only_for": null,
+    "report_ref_doctype": null,
+    "type": "Card Break"
+   },
+   {
+    "dependencies": "",
+    "description": null,
+    "hidden": 0,
+    "icon": null,
+    "is_query_report": 0,
+    "label": "VAT Report",
+    "link_count": 0,
+    "link_to": "Zatca VAT",
+    "link_type": "Report",
+    "onboard": 0,
+    "only_for": null,
+    "report_ref_doctype": null,
+    "type": "Link"
+   },
+   {
+    "dependencies": "",
+    "description": null,
+    "hidden": 0,
+    "icon": null,
+    "is_query_report": 0,
+    "label": "Settings",
+    "link_count": 0,
+    "link_to": null,
+    "link_type": null,
+    "onboard": 0,
+    "only_for": null,
+    "report_ref_doctype": null,
+    "type": "Card Break"
+   },
+   {
+    "dependencies": "",
+    "description": null,
+    "hidden": 0,
+    "icon": null,
+    "is_query_report": 0,
+    "label": "Zatca CSR Settings",
+    "link_count": 0,
+    "link_to": "Zatca CSR Settings",
+    "link_type": "DocType",
+    "onboard": 1,
+    "only_for": null,
+    "report_ref_doctype": null,
+    "type": "Link"
+   }
+  ],
+  "modified": "2026-01-26 00:00:00",
+  "module": "Saudi Arabia Electronic Invoicing",
   "name": "ZATCA Integrations",
   "number_cards": [
    {
     "label": "CLEARED INVOICES",
-    "number_card_name": "WEEKLY CLEARED INVOICES",
-    "parent": "ZATCA Integrations",
-    "parentfield": "number_cards",
-    "parenttype": "Workspace"
+    "number_card_name": "WEEKLY CLEARED INVOICES"
    },
    {
     "label": "REPORTED with WARNING  INVOICES",
-    "number_card_name": "WEEKLY REPORTED with WARNING  INVOICES",
-    "parent": "ZATCA Integrations",
-    "parentfield": "number_cards",
-    "parenttype": "Workspace"
+    "number_card_name": "WEEKLY REPORTED with WARNING  INVOICES"
    },
    {
     "label": "REPORTED INVOICES",
-    "number_card_name": "WEEKLY REPORTED INVOICES",
-    "parent": "ZATCA Integrations",
-    "parentfield": "number_cards",
-    "parenttype": "Workspace"
+    "number_card_name": "WEEKLY REPORTED INVOICES"
    },
    {
     "label": "CLEARED with WARNING  INVOICES",
-    "number_card_name": "WEEKLY CLEARED with WARNING  INVOICES",
-    "parent": "ZATCA Integrations",
-    "parentfield": "number_cards",
-    "parenttype": "Workspace"
+    "number_card_name": "WEEKLY CLEARED with WARNING  INVOICES"
    },
    {
     "label": "PENDING INVOICES",
-    "number_card_name": "WEEKLY PENDING INVOICES",
-    "parent": "ZATCA Integrations",
-    "parentfield": "number_cards",
-    "parenttype": "Workspace"
+    "number_card_name": "WEEKLY PENDING INVOICES"
    },
    {
     "label": "FAILED CLEARED INVOICES",
-    "number_card_name": "WEEKLY FAILED CLEARED INVOICES",
-    "parent": "ZATCA Integrations",
-    "parentfield": "number_cards",
-    "parenttype": "Workspace"
+    "number_card_name": "WEEKLY FAILED CLEARED INVOICES"
    },
    {
     "label": "FAILED REPORTED INVOICES",
-    "number_card_name": "WEEKLY FAILED REPORTED INVOICES",
-    "parent": "ZATCA Integrations",
-    "parentfield": "number_cards",
-    "parenttype": "Workspace"
+    "number_card_name": "WEEKLY FAILED REPORTED INVOICES"
    }
   ],
   "parent_page": "",
   "public": 1,
   "quick_lists": [],
-  "restrict_to_domain": null,
+  "restrict_to_domain": "",
   "roles": [],
   "sequence_id": 23.0,
   "shortcuts": [
@@ -104,9 +259,6 @@
     "kanban_board": null,
     "label": "Zatca Dashboard",
     "link_to": "Zatca",
-    "parent": "ZATCA Integrations",
-    "parentfield": "shortcuts",
-    "parenttype": "Workspace",
     "report_ref_doctype": null,
     "restrict_to_domain": null,
     "stats_filter": null,
@@ -121,9 +273,6 @@
     "kanban_board": null,
     "label": "CSID Transactions",
     "link_to": "CSID Transactions",
-    "parent": "ZATCA Integrations",
-    "parentfield": "shortcuts",
-    "parenttype": "Workspace",
     "report_ref_doctype": null,
     "restrict_to_domain": null,
     "stats_filter": "[]",
@@ -138,10 +287,7 @@
     "kanban_board": null,
     "label": "VAT Report",
     "link_to": "Zatca VAT",
-    "parent": "ZATCA Integrations",
-    "parentfield": "shortcuts",
-    "parenttype": "Workspace",
-    "report_ref_doctype": "GL Entry",
+    "report_ref_doctype": null,
     "restrict_to_domain": null,
     "stats_filter": null,
     "type": "Report",
@@ -155,9 +301,6 @@
     "kanban_board": null,
     "label": "Zatca CSR Settings",
     "link_to": "Zatca CSR Settings",
-    "parent": "ZATCA Integrations",
-    "parentfield": "shortcuts",
-    "parenttype": "Workspace",
     "report_ref_doctype": null,
     "restrict_to_domain": null,
     "stats_filter": "[]",
@@ -172,9 +315,6 @@
     "kanban_board": null,
     "label": "PSID Transactions",
     "link_to": "Zatca Transactions",
-    "parent": "ZATCA Integrations",
-    "parentfield": "shortcuts",
-    "parenttype": "Workspace",
     "report_ref_doctype": null,
     "restrict_to_domain": null,
     "stats_filter": "[]",
@@ -189,9 +329,6 @@
     "kanban_board": null,
     "label": "Compliance CSID",
     "link_to": "Compliance CSID",
-    "parent": "ZATCA Integrations",
-    "parentfield": "shortcuts",
-    "parenttype": "Workspace",
     "report_ref_doctype": null,
     "restrict_to_domain": null,
     "stats_filter": "[]",
@@ -206,9 +343,6 @@
     "kanban_board": null,
     "label": "Production CSID",
     "link_to": "Production CSID",
-    "parent": "ZATCA Integrations",
-    "parentfield": "shortcuts",
-    "parenttype": "Workspace",
     "report_ref_doctype": null,
     "restrict_to_domain": null,
     "stats_filter": "[]",
@@ -223,9 +357,6 @@
     "kanban_board": null,
     "label": "Zatca Environments",
     "link_to": "Zatca Environment",
-    "parent": "ZATCA Integrations",
-    "parentfield": "shortcuts",
-    "parenttype": "Workspace",
     "report_ref_doctype": null,
     "restrict_to_domain": null,
     "stats_filter": "[]",
@@ -233,6 +364,7 @@
     "url": null
    }
   ],
-  "title": "ZATCA Integrations"
+  "title": "ZATCA Integrations",
+  "type": "Workspace"
  }
 ]

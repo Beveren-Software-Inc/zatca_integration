@@ -1,1 +1,2 @@
 qrcode==7.4.2
+deep-translator>=1.11.4
