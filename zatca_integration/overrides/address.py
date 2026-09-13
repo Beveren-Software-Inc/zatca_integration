@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import json
 import re
-from typing import Optional
 
 import frappe
 from frappe import _
@@ -140,7 +139,7 @@ def validate_saudi_national_address(doc):
     # require full national address for domestic VAT categories, and for blank category.
     tax_category = (doc.get("tax_category") or "").strip()
     if tax_category and tax_category not in DOMESTIC_VAT_CATEGORIES:
-        # Overseas-style category on SA country: still require core fields lightly? 
+        # Overseas-style category on SA country: still require core fields lightly?
         # Spec: overseas addresses not mandatory. If category is Export, skip hard SA rules.
         if tax_category == "Export / Non-Resident":
             return
@@ -152,9 +151,7 @@ def validate_saudi_national_address(doc):
 
     if missing:
         frappe.throw(
-            _("Saudi National Address is incomplete. Please fill: {0}").format(
-                ", ".join(missing)
-            ),
+            _("Saudi National Address is incomplete. Please fill: {0}").format(", ".join(missing)),
             title=_("National Address Required"),
         )
 
@@ -223,12 +220,12 @@ def sync_party_tax_category_to_addresses(doc, method=None):
 
 
 @frappe.whitelist()
-def translate_text_to_arabic(text: str, field: Optional[str] = None) -> str:
+def translate_text_to_arabic(text: str, field: str | None = None) -> str:
     """Whitelisted helper for client-side Arabic autofill."""
     return translate_to_arabic(text or "", field=field)
 
 
-def translate_to_arabic(text: str, field: Optional[str] = None) -> str:
+def translate_to_arabic(text: str, field: str | None = None) -> str:
     text = (text or "").strip()
     if not text:
         return ""
@@ -295,7 +292,7 @@ def _translate_via_library(text: str) -> str:
         return ""
 
 
-def requires_saudi_national_address(country: str, tax_category: Optional[str] = None) -> bool:
+def requires_saudi_national_address(country: str, tax_category: str | None = None) -> bool:
     if country != "Saudi Arabia":
         return False
     if tax_category == "Export / Non-Resident":

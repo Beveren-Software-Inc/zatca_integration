@@ -259,12 +259,12 @@ def _get_expected_line_extension_total(sales_invoice_doc, included):
                 + flt(sales_invoice_doc.base_discount_amount)
             )
         else:
-            amount = sales_invoice_doc.base_net_total if not included else sales_invoice_doc.net_total
+            amount = (
+                sales_invoice_doc.base_net_total if not included else sales_invoice_doc.net_total
+            )
     elif discount > 0:
         amount = (
-            sales_invoice_doc.total
-            if not included
-            else flt(sales_invoice_doc.net_total) + discount
+            sales_invoice_doc.total if not included else flt(sales_invoice_doc.net_total) + discount
         )
     else:
         amount = sales_invoice_doc.net_total if not included else sales_invoice_doc.total
@@ -362,7 +362,9 @@ def item_data(invoice, sales_invoice_doc):
 
         for item in sales_invoice_doc.items:
             unit_net_rate = _get_item_unit_net_rate(item, included, tax_rate)
-            quantity, unit_price, line_extension = _compute_zatca_line_amounts(item.qty, unit_net_rate)
+            quantity, unit_price, line_extension = _compute_zatca_line_amounts(
+                item.qty, unit_net_rate
+            )
 
             cac_invoiceline = ET.SubElement(invoice, "cac:InvoiceLine")
 
@@ -421,9 +423,7 @@ def item_data(invoice, sales_invoice_doc):
         _reconcile_line_extension_entries(line_entries, expected_total)
 
         for entry in line_entries:
-            _apply_line_entry_to_xml(
-                entry, sales_invoice_doc.currency, tax_rate, included
-            )
+            _apply_line_entry_to_xml(entry, sales_invoice_doc.currency, tax_rate, included)
 
         return invoice
 

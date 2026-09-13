@@ -201,9 +201,14 @@ class CustomSalesInvoice(SalesInvoice):
 def make_regional_gl_entries(gl_entries, doc):
     return gl_entries
 
+
 def on_cancel(doc, method):
     if doc.custom_validation_results is not None:
         frappe.throw(
-            "<span style='color:red; font-weight:thin;'>ZATCA Submitted invoice cannot be cancelled. Kindly create a Credit Note instead.</span>",
-            title="Action Not Allowed"
+            (
+                "<span style='color:red; font-weight:thin;'>"
+                "ZATCA Submitted invoice cannot be cancelled. "
+                "Kindly create a Credit Note instead.</span>"
+            ),
+            title="Action Not Allowed",
         )

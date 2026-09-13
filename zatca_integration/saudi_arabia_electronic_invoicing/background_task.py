@@ -30,7 +30,8 @@ def is_zatca_compliance_ready(company_name):
 
 
 B2C_COMPLIANCE_BATCH_JOB_ID = "zatca_integration:b2c_compliance_batch_submit"
-B2C_COMPLIANCE_BATCH_TIMEOUT = 60 * 60  # 30 minutes (RQ worker must allow this timeout on `long` queue)
+# RQ worker must allow this timeout on `long` queue (30 minutes)
+B2C_COMPLIANCE_BATCH_TIMEOUT = 60 * 60
 
 
 def send_multiple_signed_compliance_invoices_to_zatca():
@@ -91,12 +92,17 @@ def send_multiple_signed_compliance_invoices_to_zatca():
 #                 try:
 #                     frappe.log_error(title=error_title, message=frappe.utils.cstr(e))
 #                 except Exception:
-#                     frappe.logger().error(f"Failed to log error for {invoice_data.name}: {str(e)}")
-
-#                 results.append({"invoice": invoice_data.name, "status": "failed", "error": str(e)})
+#                     frappe.logger().error(
+#                         f"Failed to log error for {invoice_data.name}: {str(e)}"
+#                     )
+#
+#                 results.append(
+#                     {"invoice": invoice_data.name, "status": "failed", "error": str(e)}
+#                 )
 #                 continue
 
 #     return results
+
 
 def _run_send_multiple_signed_compliance_invoices_to_zatca():
     """
@@ -137,20 +143,15 @@ def _run_send_multiple_signed_compliance_invoices_to_zatca():
 
         # 🔥 Batch loop
         for start in range(0, total, BATCH_SIZE):
-            batch = invoices[start:start + BATCH_SIZE]
-            frappe.logger().info(
-                f"{company.name}: Processing batch {start} → {start + len(batch)}"
-            )
+            batch = invoices[start : start + BATCH_SIZE]
+            frappe.logger().info(f"{company.name}: Processing batch {start} → {start + len(batch)}")
 
             for invoice_data in batch:
                 try:
                     invoice = frappe.get_doc("Sales Invoice", invoice_data.name)
                     bg_generate_einvoice(invoice)
 
-                    results.append({
-                        "invoice": invoice.name,
-                        "status": "success"
-                    })
+                    results.append({"invoice": invoice.name, "status": "success"})
 
                 except Exception as e:
                     error_title = f"Error generating einvoice for {invoice_data.name}"
@@ -158,20 +159,19 @@ def _run_send_multiple_signed_compliance_invoices_to_zatca():
                         error_title = error_title[:137] + "..."
 
                     try:
-                        frappe.log_error(
-                            title=error_title,
-                            message=frappe.utils.cstr(e)
-                        )
+                        frappe.log_error(title=error_title, message=frappe.utils.cstr(e))
                     except Exception:
                         frappe.logger().error(
                             f"Failed to log error for {invoice_data.name}: {str(e)}"
                         )
 
-                    results.append({
-                        "invoice": invoice_data.name,
-                        "status": "failed",
-                        "error": str(e),
-                    })
+                    results.append(
+                        {
+                            "invoice": invoice_data.name,
+                            "status": "failed",
+                            "error": str(e),
+                        }
+                    )
 
             # ✅ Commit after each batch
             frappe.db.commit()

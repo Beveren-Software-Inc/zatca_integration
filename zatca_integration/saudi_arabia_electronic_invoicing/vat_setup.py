@@ -7,15 +7,12 @@ existing 15% templates and accounts.
 
 from __future__ import annotations
 
-from typing import Optional
-
 import frappe
+from erpnext.setup.doctype.company.company import get_name_with_abbr
+from erpnext.setup.setup_wizard.operations.taxes_setup import get_or_create_account
 from frappe import _
 from frappe.custom.doctype.custom_field.custom_field import create_custom_fields
 from frappe.utils import cint, flt
-
-from erpnext.setup.doctype.company.company import get_name_with_abbr
-from erpnext.setup.setup_wizard.operations.taxes_setup import get_or_create_account
 
 STANDARD_RATE = 15.0
 
@@ -81,7 +78,9 @@ def run_ksa_vat_setup_step(company: str, step: str, force: int = 0):
         }
 
     if step == "prepare" and cint(force):
-        frappe.db.set_value("Company", company, "custom_zatca_vat_setup_done", 0, update_modified=False)
+        frappe.db.set_value(
+            "Company", company, "custom_zatca_vat_setup_done", 0, update_modified=False
+        )
 
     handlers = {
         "prepare": _step_prepare,
@@ -107,12 +106,15 @@ def run_ksa_vat_setup(company: str, force: int = 0):
     """Run all setup steps at once (support / console). Prefer stepped UI from the button."""
     _assert_setup_permission()
     if cint(force):
-        frappe.db.set_value("Company", company, "custom_zatca_vat_setup_done", 0, update_modified=False)
+        frappe.db.set_value(
+            "Company", company, "custom_zatca_vat_setup_done", 0, update_modified=False
+        )
 
     summary = {}
     for step in SETUP_STEPS:
         summary[step["name"]] = run_ksa_vat_setup_step(company, step["name"], force=force)
-        if summary[step["name"]].get("skipped") and summary[step["name"]].get("reason") == "already_done":
+        step_result = summary[step["name"]]
+        if step_result.get("skipped") and step_result.get("reason") == "already_done":
             return {"skipped": True, "reason": "already_done", "steps": summary}
     return summary
 
@@ -195,7 +197,9 @@ def ensure_custom_fields():
                     "read_only": 1,
                     "no_copy": 1,
                     "hidden": 1,
-                    "description": "Set automatically after KSA VAT accounts/templates are configured.",
+                    "description": (
+                        "Set automatically after KSA VAT accounts/templates are configured."
+                    ),
                 }
             ]
         },
@@ -362,7 +366,9 @@ def ensure_sales_tax_templates(company: str, abbr: str, cost_center: str, accoun
     return result
 
 
-def ensure_purchase_tax_templates(company: str, abbr: str, cost_center: str, accounts: dict) -> dict:
+def ensure_purchase_tax_templates(
+    company: str, abbr: str, cost_center: str, accounts: dict
+) -> dict:
     input_vat = accounts["input_vat"].name
     output_vat = accounts["output_vat"].name
     result = {}
@@ -550,7 +556,7 @@ def tax_rule_exists(company: str, rule: dict) -> bool:
     return bool(frappe.db.exists("Tax Rule", filters))
 
 
-def _title_variants(title: Optional[str], company_abbr: Optional[str] = None) -> list:
+def _title_variants(title: str | None, company_abbr: str | None = None) -> list:
     """Titles to match: clean title, plus legacy title that already included abbr."""
     if not title:
         return []
@@ -566,9 +572,7 @@ def _title_variants(title: Optional[str], company_abbr: Optional[str] = None) ->
     return variants
 
 
-def fix_template_naming(
-    doctype: str, name: str, clean_title: str, company_abbr: str
-) -> str:
+def fix_template_naming(doctype: str, name: str, clean_title: str, company_abbr: str) -> str:
     """Fix title/name when abbr was wrongly stored in title (e.g. Exempt VAT - BSW - BSW).
 
     DocTypes autoname as ``{title} - {abbr}``, so title must NOT include the abbr.
@@ -612,11 +616,11 @@ def find_equivalent_tax_template(
     doctype: str,
     company: str,
     rate: float,
-    tax_type: Optional[str] = None,
+    tax_type: str | None = None,
     match_by_rate_only: bool = False,
-    title: Optional[str] = None,
-    company_abbr: Optional[str] = None,
-) -> Optional[str]:
+    title: str | None = None,
+    company_abbr: str | None = None,
+) -> str | None:
     """Find an existing template by title, or by rate (+ tax type for 0% templates)."""
     for candidate in _title_variants(title, company_abbr):
         existing = frappe.db.get_value(doctype, {"title": candidate, "company": company})
@@ -631,9 +635,7 @@ def find_equivalent_tax_template(
                     doc_company = frappe.db.get_value(doctype, name_candidate, "company")
                     if doc_company == company:
                         if title and company_abbr:
-                            return fix_template_naming(
-                                doctype, name_candidate, title, company_abbr
-                            )
+                            return fix_template_naming(doctype, name_candidate, title, company_abbr)
                         return name_candidate
 
     child_doctype = (
@@ -683,9 +685,9 @@ def find_template_by_title_keywords(
     doctype: str,
     company: str,
     keywords: tuple,
-    title: Optional[str] = None,
-    company_abbr: Optional[str] = None,
-) -> Optional[str]:
+    title: str | None = None,
+    company_abbr: str | None = None,
+) -> str | None:
     for candidate in _title_variants(title, company_abbr):
         existing = frappe.db.get_value(doctype, {"title": candidate, "company": company})
         if existing:
@@ -705,8 +707,8 @@ def find_template_by_title_keywords(
 
 
 def find_item_tax_template(
-    company: str, rate: float, title: str, company_abbr: Optional[str] = None
-) -> Optional[str]:
+    company: str, rate: float, title: str, company_abbr: str | None = None
+) -> str | None:
     doctype = "Item Tax Template"
     for candidate in _title_variants(title, company_abbr):
         existing = frappe.db.get_value(doctype, {"title": candidate, "company": company})
@@ -759,10 +761,10 @@ def create_sales_or_purchase_template(
     cost_center: str,
     tax_type: str,
     is_default: int = 0,
-    zero_rate_reason: Optional[str] = None,
-    except_rate_reason: Optional[str] = None,
-    description: Optional[str] = None,
-    extra_rows: Optional[list] = None,
+    zero_rate_reason: str | None = None,
+    except_rate_reason: str | None = None,
+    description: str | None = None,
+    extra_rows: list | None = None,
 ):
     # Title must not include company abbr — autoname appends " - {abbr}"
     abbr = frappe.get_cached_value("Company", company, "abbr") or ""
@@ -805,4 +807,3 @@ def create_sales_or_purchase_template(
     if abbr:
         return fix_template_naming(doctype, doc.name, title, abbr)
     return doc.name
-
